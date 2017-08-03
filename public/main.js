@@ -8,8 +8,9 @@ function writeUserData(name, telephone) {
 function handleSignup(evt) {
     evt.preventDefault();
     const data = new FormData(evt.target);
-
-    writeUserData(data.get("name"), data.get("telephone"));
+    const num = data.get("telephone").replace(/[^\d]/g, '');
+    
+    writeUserData(data.get("name"), num);
 }
 
 document.getElementById("signup").addEventListener("submit", handleSignup, false);
