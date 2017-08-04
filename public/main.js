@@ -8,9 +8,10 @@ function writeUserData(name, telephone) {
 function showMessage(evt) {
 	//console.log("showMessage")
 	element = document.getElementById("hidden-message")
-
-	//console.log(element)
 	element.classList.remove("hidden")
+
+	element = document.getElementById("container")
+	element.classList.add("hidden")
 	//document.getElementById("hidden-message").classList.add("message")
 }
 
