@@ -3,6 +3,10 @@ function writeUserData(name, telephone, zip) {
         username: name,
         telephone: telephone,
         zip: zip
+    }).then(() => {
+        console.log("success " + name);
+    }).catch((err) => {
+        console.log(err);
     });
 }
 
