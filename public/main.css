@@ -66,3 +66,15 @@ body {
 .flex {
     display: flex;
 }
+
+.col {
+    flex: 1;
+}
+
+.left {
+    margin-right: 80px;
+}
+
+.col img {
+    width: 100%;
+}
