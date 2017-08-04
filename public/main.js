@@ -4,7 +4,7 @@ function writeUserData(name, telephone, zip) {
         telephone: telephone,
         zip: zip
     }).then(() => {
-    	alert("Congrats, " + name + "! You will receive awesome adventures soon!")
+    	alert("Congrats, " + name + "! You will receive awesome adventures soon!");
         document.getElementById("signup").reset();
     }).catch((err) => {
         console.log(err);

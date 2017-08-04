@@ -5,9 +5,11 @@ const twilio = require('twilio');
 const config = require('./config.json');
 
 const MessagingResponse = twilio.twiml.MessagingResponse;
-
 const projectId = process.env.GCLOUD_PROJECT;
 const region = 'us-central1';
+
+//require the Twilio module and create a REST client 
+var client = twilio(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
 
 exports.reply = functions.https.onRequest((req, res) => {
   let isValid = true;
@@ -43,9 +45,18 @@ exports.reply = functions.https.onRequest((req, res) => {
     .end(response.toString());
 });
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+// Take the text parameter passed to this HTTP endpoint and insert it into the
+exports.addMessage = functions.database.ref('/users/{userId}').onWrite((event) => {
+    // Grab the current value of what was written to the Realtime Database.
+    const original = event.data.val();
+    console.log("username " + original["username"]);
+    console.log("telephone " + original["telephone"]);
+
+    client.messages.create({ 
+        to: "+1" + original["telephone"],
+        from: "+12062025653",
+        body: original["username"] + ", Thanks for joining!"  
+    }, function(err, message) { 
+        console.log(message.sid); 
+    });
+});
