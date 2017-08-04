@@ -19,4 +19,11 @@ function handleSignup(evt) {
     writeUserData(data.get("name"), num, data.get("zip"));
 }
 
+function printUsers(){
+    firebase.database().ref('/users').once('value').then(function(snapshot) {
+        console.log(snapshot.val());
+    });
+}
+
 document.getElementById("signup").addEventListener("submit", handleSignup, false);
+document.getElementById("test").addEventListener("click", printUsers, false);
