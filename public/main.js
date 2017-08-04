@@ -1,5 +1,3 @@
-const successMessage = document.getElementById("hidden-message");
-
 function writeUserData(name, telephone, zip) {
     firebase.database().ref('users/' + telephone).set({
         username: name,
@@ -7,7 +5,7 @@ function writeUserData(name, telephone, zip) {
         zip: zip
     }).then(() => {
     	alert("Congrats, " + name + "! You will receive awesome adventures soon!")
-    	successMessage.classList.remove("hidden");
+        document.getElementById("signup").reset();
     }).catch((err) => {
         console.log(err);
     });
