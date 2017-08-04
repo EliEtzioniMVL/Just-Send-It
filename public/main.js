@@ -10,7 +10,17 @@ function writeUserData(name, telephone, zip) {
     });
 }
 
+function showMessage(evt) {
+	//console.log("showMessage")
+	element = document.getElementById("hidden-message")
+
+	//console.log(element)
+	element.classList.remove("hidden")
+	//document.getElementById("hidden-message").classList.add("message")
+}
+
 function handleSignup(evt) {
+	console.log("handleSignup")
     evt.preventDefault();
     const data = new FormData(evt.target);
     const num = data.get("telephone").replace(/[^\d]/g, '');
@@ -19,3 +29,4 @@ function handleSignup(evt) {
 }
 
 document.getElementById("signup").addEventListener("submit", handleSignup, false);
+document.getElementById("signup").addEventListener("submit", showMessage, false);
