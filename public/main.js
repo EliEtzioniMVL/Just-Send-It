@@ -1,27 +1,19 @@
+const successMessage = document.getElementById("hidden-message");
+
 function writeUserData(name, telephone, zip) {
     firebase.database().ref('users/' + telephone).set({
         username: name,
         telephone: telephone,
         zip: zip
     }).then(() => {
-        console.log("success " + name);
+    	alert("Congrats, " + name + "! You will receive awesome adventures soon!")
+    	successMessage.classList.remove("hidden");
     }).catch((err) => {
         console.log(err);
     });
 }
 
-function showMessage(evt) {
-	//console.log("showMessage")
-	element = document.getElementById("hidden-message")
-	element.classList.remove("hidden")
-
-	element = document.getElementById("container")
-	element.classList.add("hidden")
-	//document.getElementById("hidden-message").classList.add("message")
-}
-
 function handleSignup(evt) {
-	console.log("handleSignup")
     evt.preventDefault();
     const data = new FormData(evt.target);
     const num = data.get("telephone").replace(/[^\d]/g, '');
@@ -30,4 +22,3 @@ function handleSignup(evt) {
 }
 
 document.getElementById("signup").addEventListener("submit", handleSignup, false);
-document.getElementById("signup").addEventListener("submit", showMessage, false);

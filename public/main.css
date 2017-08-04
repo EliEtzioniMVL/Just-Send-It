@@ -78,15 +78,3 @@ body {
 .col img {
     width: 100%;
 }
-
-.message { 
-    text-align: center;
-    color: "rgb(102, 51, 0)";
-    position: absolute;
-    left: 0px;
-    top: 0px;
-}
-
-.hidden {
-	display: none;
-}
