@@ -9,7 +9,7 @@ function handleSignup(evt) {
     evt.preventDefault();
     const data = new FormData(evt.target);
     const num = data.get("telephone").replace(/[^\d]/g, '');
-    
+
     writeUserData(data.get("name"), num);
 }
 
