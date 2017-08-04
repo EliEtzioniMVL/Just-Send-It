@@ -1,3 +1,23 @@
+body {
+	font-family: "Helvetica", serif;
+}
+
 #container {
     margin: 0 auto;
+    width: 280px;
+}
+
+.input-std {
+	display: block;
+	width: 100%;
+	height: 40px;
+	margin-bottom: 20px;
+	font-family: "Helvetica", serif;
+	padding: 0 10px;
+	border-radius: 5px;
+}
+
+.title { 
+    text-align: center;
+    color: "rgb(102, 51, 0)";
 }
