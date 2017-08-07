@@ -48,6 +48,21 @@
         </div>
       </div>
     </div>
+    <div class="footer">
+      <div class="container">
+        <div id="admin">Admin</div>
+      </div>
+    </div>
+    <div id="event-popup" class="popup hide-popup">
+      <form id="event-form">
+        <input type="text" class="input-pop" name="organizer" placeholder="Organizer Name" />
+        <input type="text" class="input-pop" name="title" placeholder="Event Title" />
+        <input type="text" class="input-pop" name="description" placeholder="Description" />
+        <input type="text" class="input-pop" name="zip" placeholder="Zip" />
+        <input type="terxt" class="input-pop" name="time" placeholder="Time until event" />
+        <button class="btn-join">Create Event</button>
+      </form>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {

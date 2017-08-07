@@ -45,18 +45,36 @@ exports.reply = functions.https.onRequest((req, res) => {
     .end(response.toString());
 });
 
-// Take the text parameter passed to this HTTP endpoint and insert it into the
-exports.addMessage = functions.database.ref('/users/{userId}').onWrite((event) => {
+// Sends a welcome message when a user signs up and is added to users.
+exports.welcomeMessage = functions.database.ref('/users/{userId}').onWrite((event) => {
     // Grab the current value of what was written to the Realtime Database.
     const original = event.data.val();
-    console.log("username " + original["username"]);
-    console.log("telephone " + original["telephone"]);
 
     client.messages.create({ 
         to: "+1" + original["telephone"],
         from: "+12062025653",
-        body: original["username"] + ", Thanks for joining!"  
+        body: original["username"] + ", Thanks for joining Just Send It! If you ever want to unsubscribe just text this number with the message unsubscribe."  
     }, function(err, message) { 
         console.log(message.sid); 
     });
+});
+
+// Sends an event message when a new event is added to events.
+exports.eventMessage = functions.database.ref('/events/{eventId}').onWrite((event) => {
+    const original = event.data.val();
+
+    // My guess is you want to do something like this but maybe you do it client side. Not sure.
+    // return functions.database.ref('/users').once('value').then(function(snapshot) {
+    //     var users = snapshot.val();
+
+    //     users.forEach((user) => {
+    //         client.messages.create({ 
+    //             to: "+1" + user["telephone"],
+    //             from: "+12062025653",
+    //             body: user["username"] + ", Join us for" + original["title"] + "!"  
+    //         }, function(err, message) { 
+    //             console.log(message.sid); 
+    //         });
+    //     });
+    // });
 });
