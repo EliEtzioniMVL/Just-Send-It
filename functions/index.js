@@ -11,6 +11,7 @@ const region = 'us-central1';
 //require the Twilio module and create a REST client 
 var client = twilio(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
 
+// repurpose this function to respond with adventure details
 exports.reply = functions.https.onRequest((req, res) => {
   let isValid = true;
 
@@ -35,8 +36,23 @@ exports.reply = functions.https.onRequest((req, res) => {
   // Prepare a response to the SMS message
   const response = new MessagingResponse();
 
+  // Conatiner for the event details outside of the return 
+  // since there may be scope issues
+  const description = '';
+  const hardtime = '';
+  const meetingpoint = '';
+
+  // Grab the value of the most recent event written to the events database
+  return functions.database.ref('/events').once('value').then(function(snapshot) {
+        var events = snapshot.val();
+        var most_recent_event = ;
+        description = most_recent_event["description"];
+        hardtime = most_recent_event["hard-time"];
+        meetingpoint = most_recent_event["meetingpoint"];
+  }
+
   // Add text to the response
-  response.message('Hello from Google Cloud Functions!');
+  response.message('LETS GO. Stoked that you\'re coming out. Here\'s the plan: ' + description + '. See you at ' + meetingpoint + ' at ' + hardtime + ' sharp.');
 
   // Send the response
   res
@@ -53,7 +69,7 @@ exports.welcomeMessage = functions.database.ref('/users/{userId}').onWrite((even
     client.messages.create({ 
         to: "+1" + original["telephone"],
         from: "+12062025653",
-        body: original["username"] + ", Thanks for joining Just Send It! If you ever want to unsubscribe just text this number with the message unsubscribe."  
+        body: original["username"] + ", thanks for joining Just Send It! If you ever want to unsubscribe just text this number with the message unsubscribe."  
     }, function(err, message) { 
         console.log(message.sid); 
     });
@@ -64,17 +80,17 @@ exports.eventMessage = functions.database.ref('/events/{eventId}').onWrite((even
     const original = event.data.val();
 
     // My guess is you want to do something like this but maybe you do it client side. Not sure.
-    // return functions.database.ref('/users').once('value').then(function(snapshot) {
-    //     var users = snapshot.val();
+    return functions.database.ref('/users').once('value').then(function(snapshot) {
+        var users = snapshot.val();
 
-    //     users.forEach((user) => {
-    //         client.messages.create({ 
-    //             to: "+1" + user["telephone"],
-    //             from: "+12062025653",
-    //             body: user["username"] + ", Join us for" + original["title"] + "!"  
-    //         }, function(err, message) { 
-    //             console.log(message.sid); 
-    //         });
-    //     });
-    // });
+        users.forEach((user) => {
+            client.messages.create({ 
+                to: "+1" + user["telephone"],
+                from: "+12062025653",
+                body: "Hello, " + user["username"] + ", Want to join us for" + original["title"] + "in " + original["time"] + ". If you want to send it, just respond to this message saying whatever you'd like."  
+            }, function(err, message) { 
+                console.log(message.sid); 
+            });
+        });
+    });
 });

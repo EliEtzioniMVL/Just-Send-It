@@ -44,7 +44,9 @@ function handleCreateEvent(evt) {
         title: data.get("title"),
         description: data.get("description"),
         zip: data.get("zip"),
-        time: data.get("time")
+        meetspot: data.get("meetingpoint"),
+        time: data.get("time"),
+        starttime: data.get("hard-time")
     }
 
     writeEventData(formData).then(() => {

@@ -127,7 +127,7 @@ li {
 .popup {
     position: fixed;
     width: 600px;
-    height: 400px;
+    height: 500px;
     background-color: #fff;
     border: 1px solid #ccc;
     z-index: 1;
