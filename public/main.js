@@ -19,11 +19,12 @@ function handleSignup(evt) {
     }
 
     writeUserData(formData, num).then(() => {
-    	alert("Congrats, " + name + "! You will receive awesome adventures soon!");
+    	alert("Congrats, " + data.get("name") + "! You will receive awesome adventures soon!");
         document.getElementById("signup").reset();
     }).catch((err) => {
         console.log(err);
     });
+
 }
 
 function writeEventData(data) {
@@ -44,9 +45,9 @@ function handleCreateEvent(evt) {
         title: data.get("title"),
         description: data.get("description"),
         zip: data.get("zip"),
-        meetspot: data.get("meetingpoint"),
+        meetingpoint: data.get("meetingpoint"),
         time: data.get("time"),
-        starttime: data.get("hard-time")
+        timestamp: data.get("timestamp")
     }
 
     writeEventData(formData).then(() => {
